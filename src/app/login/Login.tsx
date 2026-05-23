@@ -6,7 +6,6 @@ import { loginUser } from '../lib/users';
 import { LoginObject } from '@/types/LoginObject';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
-import { supabase } from '../lib/supabaseClient';
 
 const LoginForm = () => {
    const { setIsAuthenticated, setUser } = useAuth();

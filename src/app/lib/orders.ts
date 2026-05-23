@@ -1,4 +1,4 @@
-import { OrderType } from '@/types/OrderType';
+import { OrderFromDB, OrderType } from '@/types/OrderType';
 import { supabase } from './supabaseClient';
 
 export async function createOrder(products: number[]) {
@@ -82,12 +82,26 @@ export async function getOrders(): Promise<OrderType[]> {
       if (error) throw error;
 
       // 🔥 NORMALIZACIÓN
-      return (data ?? []).map((order: any) => ({
-         id: order.id,
-         status: order.status,
-         date: order.date,
-         products: order.order_items.map((op: any) => op.products),
-      }));
+      return (data ?? []).map(
+         (order: OrderFromDB): OrderType => ({
+            id: order.id,
+            status: order.status,
+            date: new Date(order.date),
+            products: order.order_items.map((op) => {
+               const product = op.products[0]; // 👈 CLAVE
+
+               return {
+                  id: product.id,
+                  name: product.name,
+                  price: product.price,
+                  image: product.image,
+                  description: '',
+                  stock: 0,
+                  category_id: 0,
+               };
+            }),
+         })
+      );
    } catch (error) {
       console.error('Error fetching orders:', error);
       return [];

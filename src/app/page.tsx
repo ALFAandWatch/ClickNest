@@ -6,7 +6,7 @@ import { getProducts } from './lib/products';
 import { Product } from '@/types/Product';
 
 const Home: FC = () => {
-   const [products, setProducts] = useState<any[]>([]);
+   const [products, setProducts] = useState<Product[]>([]);
 
    useEffect(() => {
       const fetchProducts = async () => {

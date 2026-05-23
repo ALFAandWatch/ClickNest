@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { FC } from 'react';
 
 const LandingPage: FC = () => {
@@ -23,7 +24,7 @@ const LandingPage: FC = () => {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
                <div className="border rounded-lg shadow-lg p-4">
-                  <img
+                  <Image
                      src="/images/product-1.jpg"
                      alt="Producto 1"
                      className="w-full h-48 object-cover rounded-lg"

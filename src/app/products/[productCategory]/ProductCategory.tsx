@@ -10,14 +10,8 @@ import CategoryTitle from '@/components/CategoryTitle/CategoryTitle';
 const ProductCategory = () => {
    const params = useParams();
    const [products, setProducts] = useState<Product[]>([]);
-   const [chosenCategory, setchosenCategory] = useState<number | null>(null);
-   const router = useRouter();
 
-   useEffect(() => {
-      if (params.productCategory) {
-         setchosenCategory(Number(params.productCategory));
-      }
-   }, [params.productCategory]);
+   const router = useRouter();
 
    useEffect(() => {
       const fetchProducts = async () => {

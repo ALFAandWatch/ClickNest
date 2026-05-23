@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import categoriesHelper from '@/helpers/categories';
 import { Category } from '@/types/CategoryType';
+import Image from 'next/image';
 
 const categories = categoriesHelper;
 
@@ -13,7 +14,7 @@ const CategoriesPage = () => {
                <Link key={category.name} href={`/products/${index + 1}`}>
                   <div className="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center justify-center space-y-4 hover:brightness-110 transition duration-300 cursor-pointer">
                      <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center">
-                        <img
+                        <Image
                            src={category.image}
                            alt={category.name}
                            className="w-full h-full object-contain"

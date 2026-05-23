@@ -2,8 +2,10 @@ import { LoginObject } from '@/types/LoginObject';
 import { User } from '@/types/User';
 import Swal from 'sweetalert2';
 import { supabase } from './supabaseClient';
+import type { AuthError } from '@supabase/supabase-js';
+import type { PostgrestError } from '@supabase/supabase-js';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+type SupabaseError = AuthError | PostgrestError | Error;
 
 export async function registerUser(values: User) {
    try {
@@ -65,10 +67,13 @@ export async function loginUser(values: LoginObject) {
          session: data.session,
          user: profile,
       };
-   } catch (error: any) {
+   } catch (error: unknown) {
+      const message =
+         error instanceof Error ? error.message : 'Error al intentar ingresar.';
+
       Swal.fire({
          icon: 'error',
-         title: error?.message || 'Error al intentar ingresar.',
+         title: message,
       });
 
       return null;

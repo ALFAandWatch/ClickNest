@@ -16,6 +16,8 @@ const RegisterForm = () => {
       try {
          const result = await registerUser(values);
 
+         if (!result) throw new Error('Error al registrar usuario');
+
          Swal.fire({
             icon: 'success',
             text: 'Registro realizado con éxito',
