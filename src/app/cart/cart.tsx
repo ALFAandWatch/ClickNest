@@ -34,7 +34,9 @@ const CartPage = () => {
             confirmButtonText: 'OK',
          }).then((result) => {
             setCart([]);
-            result.isConfirmed && router.push('/dashboard');
+            if (result.isConfirmed) {
+               router.push('/dashboard');
+            }
          });
       });
    };

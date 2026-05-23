@@ -6,18 +6,13 @@ import { useAuth } from '@/context/AuthContext';
 import { useCart } from '@/context/CartContext';
 import Swal from 'sweetalert2';
 import { getProducts } from '@/app/lib/products';
+import { Product } from '@/types/Product';
 
 const ProductDetails = () => {
    const params = useParams();
-   const [product, setProduct] = useState({
-      id: 0,
-      name: '',
-      description: '',
-      price: 0,
-      stock: 0,
-      image: '',
-      categoryId: 0,
-   });
+   const [product, setProduct] = useState<Product | null>(null);
+
+   if (!product) return <p>Loading...</p>;
 
    const { id, name, description, image, price } = product;
 
@@ -91,7 +86,9 @@ const ProductDetails = () => {
                      const img = e.currentTarget as HTMLImageElement;
 
                      // evita loop infinito
-                     if (img.dataset.fallback) return;
+                     if (img.dataset.fallback) {
+                        return;
+                     }
 
                      img.dataset.fallback = 'true';
                      img.src = '/no-image.webp'; // mejor opción local

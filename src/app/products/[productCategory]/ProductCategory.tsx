@@ -31,7 +31,9 @@ const ProductCategory = () => {
 
    const categoryId = Number(params.productCategory);
 
-   categoryId > 6 && router.push('/desconocido');
+   if (categoryId > 6) {
+      router.push('/desconocido');
+   }
 
    const filteredProduct = categoryId
       ? products.filter((product) => product.category_id === categoryId)
