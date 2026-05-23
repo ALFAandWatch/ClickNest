@@ -1,6 +1,3 @@
-import { CartItemType } from './CartItemType';
-import { Product } from './Product';
-import { ProductCardType } from './ProductCardType';
 import { ProductWithQuantity } from './ProductWithQuantity';
 
 export type CartContextType = {

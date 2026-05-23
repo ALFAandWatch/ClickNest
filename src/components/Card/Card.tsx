@@ -7,7 +7,7 @@ import { ProductWithQuantity } from '@/types/ProductWithQuantity';
 import { ProductCardType } from '@/types/ProductCardType';
 
 const Card: FC<ProductWithQuantity> = (props: ProductCardType) => {
-   const { id, name, description, image, price } = props;
+   const { id, name, image, price } = props;
 
    const { isAuthenticated } = useAuth();
    const { addToCart } = useCart();

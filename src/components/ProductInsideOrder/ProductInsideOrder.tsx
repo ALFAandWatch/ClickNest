@@ -1,5 +1,3 @@
-import { Product } from '@/types/Product';
-
 type propsType = {
    image: string;
    name: string;

@@ -24,6 +24,7 @@ const RegisterForm = () => {
          });
          router.push('/');
       } catch (error) {
+         console.log(error);
          Swal.fire({
             icon: 'error',
             text: 'Error al registrar',
