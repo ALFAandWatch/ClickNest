@@ -24,10 +24,7 @@ const CartPage = () => {
 
    const handlePurchaseConfirmation = async () => {
       if (!user) return;
-      const productsToAddToOrder: number[] = [];
-      cart.map((product) => {
-         productsToAddToOrder.push(product.id);
-      });
+      const productsToAddToOrder = cart.map((product) => product.id);
 
       await createOrder(productsToAddToOrder).then(() => {
          Swal.fire({

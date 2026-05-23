@@ -2,10 +2,6 @@ import { LoginObject } from '@/types/LoginObject';
 import { User } from '@/types/User';
 import Swal from 'sweetalert2';
 import { supabase } from './supabaseClient';
-import type { AuthError } from '@supabase/supabase-js';
-import type { PostgrestError } from '@supabase/supabase-js';
-
-type SupabaseError = AuthError | PostgrestError | Error;
 
 export async function registerUser(values: User) {
    try {
