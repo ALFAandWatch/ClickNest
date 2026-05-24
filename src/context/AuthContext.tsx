@@ -22,6 +22,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
    // 🔥 Cargar sesión inicial
    useEffect(() => {
       const init = async () => {
+         setIsAuthenticated(false);
+         setUser(null);
+         setOrders([]);
+
          const { data } = await supabase.auth.getSession();
 
          if (data.session) {
@@ -35,6 +39,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                .single();
 
             setUser(profile);
+         } else {
+            setIsAuthenticated(false);
+            setUser(null);
+            setOrders([]);
          }
       };
 
