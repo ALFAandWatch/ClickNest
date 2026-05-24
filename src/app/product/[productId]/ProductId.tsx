@@ -28,8 +28,6 @@ const ProductDetails = () => {
       load();
    }, [params.productId]);
 
-   if (!product) return <p>Loading...</p>;
-
    // useEffect(() => {
    //    console.log(product);
    // }, [product]);

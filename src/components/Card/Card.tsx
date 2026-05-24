@@ -13,30 +13,33 @@ const Card: FC<ProductWithQuantity> = (props: ProductCardType) => {
    const { addToCart } = useCart();
 
    const handleAddToCart = () => {
-      isAuthenticated
-         ? Swal.fire({
-              imageUrl: image,
-              imageWidth: '50%',
-              title: '¿Agregar al carrito?',
-              inputLabel: '¿Cuántos?',
-              input: 'number',
-              inputValue: '1',
-              reverseButtons: true,
-              confirmButtonColor: '#39c9bb',
-              confirmButtonText: 'Agregar',
-              showCancelButton: true,
-              cancelButtonText: 'Cancelar',
-           }).then((result) => {
-              if (result.isConfirmed) {
-                 addToCart({ ...props, quantity: parseInt(result.value) });
-              }
-           })
-         : Swal.fire({
-              icon: 'info',
-              text: 'Debes ingresar para poder agregar productos al carrito.',
-              confirmButtonColor: '#39c9bb',
-              confirmButtonText: 'OK',
-           });
+      if (!isAuthenticated) {
+         Swal.fire({
+            icon: 'info',
+            text: 'Debes ingresar para poder agregar productos al carrito.',
+            confirmButtonColor: '#39c9bb',
+            confirmButtonText: 'OK',
+         });
+         return;
+      }
+
+      Swal.fire({
+         imageUrl: image,
+         imageWidth: '50%',
+         title: '¿Agregar al carrito?',
+         inputLabel: '¿Cuántos?',
+         input: 'number',
+         inputValue: '1',
+         reverseButtons: true,
+         confirmButtonColor: '#39c9bb',
+         confirmButtonText: 'Agregar',
+         showCancelButton: true,
+         cancelButtonText: 'Cancelar',
+      }).then((result) => {
+         if (result.isConfirmed) {
+            addToCart({ ...props, quantity: parseInt(result.value) });
+         }
+      });
    };
 
    return (
