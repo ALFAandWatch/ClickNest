@@ -11,11 +11,6 @@ import { Product } from '@/types/Product';
 const ProductDetails = () => {
    const params = useParams();
    const [product, setProduct] = useState<Product | null>(null);
-
-   if (!product) return <p>Loading...</p>;
-
-   const { id, name, description, image, price } = product;
-
    const [loading, setLoading] = useState(true);
 
    const { isAuthenticated } = useAuth();
@@ -33,12 +28,16 @@ const ProductDetails = () => {
       load();
    }, [params.productId]);
 
+   if (!product) return <p>Loading...</p>;
+
    // useEffect(() => {
    //    console.log(product);
    // }, [product]);
 
    if (loading) return <p>Loading product...</p>;
    if (!product) return <p>Product not found.</p>;
+
+   const { id, name, description, image, price } = product;
 
    const handleAddToCart = () => {
       isAuthenticated
