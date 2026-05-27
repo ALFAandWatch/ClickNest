@@ -1,19 +1,16 @@
 'use client';
 import Link from 'next/link';
 import { logOutUser } from '../lib/users';
-import { useAuth } from '@/context/AuthContext';
 import { useCart } from '@/context/CartContext';
 import { useRouter } from 'next/navigation';
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
-   const { setIsAuthenticated } = useAuth();
    const { setCart } = useCart();
    const router = useRouter();
 
    const handleLogOut = () => {
       logOutUser();
       setCart([]);
-      setIsAuthenticated(false);
       router.push('/');
    };
    return (
