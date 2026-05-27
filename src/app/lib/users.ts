@@ -78,9 +78,5 @@ export async function loginUser(values: LoginObject) {
 
 export async function logOutUser(setUser?: any, setIsAuthenticated?: any) {
    await supabase.auth.signOut();
-
-   setUser?.(null);
-   setIsAuthenticated?.(false);
-
    localStorage.removeItem('cart');
 }

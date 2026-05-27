@@ -15,35 +15,26 @@ import { supabase } from '@/app/lib/supabaseClient';
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-   const [isAuthenticated, setIsAuthenticated] = useState(false);
    const [user, setUser] = useState<AuthenticatedUser | null>(null);
    const [orders, setOrders] = useState<OrderType[]>([]);
 
    // 🔥 Cargar sesión inicial
    useEffect(() => {
       const init = async () => {
-         setIsAuthenticated(false);
          setUser(null);
          setOrders([]);
 
          const { data } = await supabase.auth.getSession();
 
-         if (data.session) {
-            setIsAuthenticated(true);
+         if (!data.session?.user) return;
 
-            // traer perfil real
-            const { data: profile } = await supabase
-               .from('users')
-               .select('*')
-               .eq('id', data.session.user.id)
-               .single();
+         const { data: profile } = await supabase
+            .from('users')
+            .select('*')
+            .eq('id', data.session.user.id)
+            .single();
 
-            setUser(profile);
-         } else {
-            setIsAuthenticated(false);
-            setUser(null);
-            setOrders([]);
-         }
+         setUser(profile);
       };
 
       init();
@@ -54,8 +45,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const { data: listener } = supabase.auth.onAuthStateChange(
          async (_event, session) => {
             if (session) {
-               setIsAuthenticated(true);
-
                const { data: profile } = await supabase
                   .from('users')
                   .select('*')
@@ -64,7 +53,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
                setUser(profile);
             } else {
-               setIsAuthenticated(false);
                setUser(null);
                setOrders([]);
             }
@@ -79,8 +67,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
    return (
       <AuthContext.Provider
          value={{
-            isAuthenticated,
-            setIsAuthenticated,
+            isAuthenticated: !!user,
             user,
             setUser,
             orders,

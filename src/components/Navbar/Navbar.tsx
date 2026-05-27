@@ -6,14 +6,13 @@ import { useRouter } from 'next/navigation';
 import { useCart } from '@/context/CartContext';
 
 const Navbar = () => {
-   const { isAuthenticated, setIsAuthenticated } = useAuth();
+   const { isAuthenticated } = useAuth();
    const { cart, setCart } = useCart();
    const router = useRouter();
 
-   const handleLogOut = () => {
-      logOutUser();
+   const handleLogOut = async () => {
+      await logOutUser();
       setCart([]);
-      setIsAuthenticated(false);
       router.push('/');
    };
 
