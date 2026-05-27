@@ -8,13 +8,12 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 
 const LoginForm = () => {
-   const { setIsAuthenticated, setUser } = useAuth();
+   const { setUser } = useAuth();
    const router = useRouter();
    const handleSubmit = async (values: LoginObject) => {
       const login = await loginUser(values);
 
       if (login && login.session) {
-         setIsAuthenticated(true);
          setUser(login.user);
          router.push('/dashboard');
       }
