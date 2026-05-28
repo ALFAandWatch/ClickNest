@@ -5,19 +5,19 @@ import { validateLogin } from '@/helpers/validateLogin';
 import { loginUser } from '../lib/users';
 import { LoginObject } from '@/types/LoginObject';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@/context/AuthContext';
 
 const LoginForm = () => {
-   const { setUser } = useAuth();
    const router = useRouter();
+
    const handleSubmit = async (values: LoginObject) => {
       const login = await loginUser(values);
 
       if (login && login.session) {
-         setUser(login.user);
+         router.refresh();
          router.push('/dashboard');
       }
    };
+
    return (
       <div className="max-w-md mx-auto mt-5 bg-white p-6 rounded-lg shadow-lg">
          <h2 className="text-2xl font-semibold text-center mb-4">Ingresar</h2>

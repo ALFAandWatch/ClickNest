@@ -5,11 +5,17 @@ import { OrderType } from '@/types/OrderType';
 import { Product } from '@/types/Product';
 import NoOrdersWarning from '@/components/NoOrdersWarning/NoOrdersWarning';
 import ProductInsideOrder from '@/components/ProductInsideOrder/ProductInsideOrder';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getOrders } from '../lib/orders';
+import { useOrders } from '@/context/OrderContext';
+import { useUser } from '@/context/UserContext';
 
 const DashboardPage = () => {
-   const { user, orders, setOrders } = useAuth();
+   const { user } = useAuth();
+   const { orders, setOrders } = useOrders();
+   const [loading, setLoading] = useState(true);
+
+   const { profile } = useUser();
 
    useEffect(() => {
       const fetchOrders = async () => {
@@ -18,18 +24,25 @@ const DashboardPage = () => {
             setOrders(orders);
          } catch (error) {
             console.error('Error fetching orders:', error);
+         } finally {
+            setLoading(false);
          }
       };
 
       fetchOrders();
    }, []);
 
-   if (!user) {
+   if (loading) {
       return (
-         <div className="min-h-screen flex items-center justify-center">
-            Cargando...
+         <div className="min-h-screen flex flex-col items-center justify-center gap-4">
+            <div className="w-10 h-10 border-4 border-gray-300 border-t-black rounded-full animate-spin"></div>
+            <p className="text-gray-600">Cargando órdenes...</p>
          </div>
       );
+   }
+
+   if (!user) {
+      return null;
    }
 
    return (
@@ -37,7 +50,8 @@ const DashboardPage = () => {
          <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
             <div className="w-full max-w-4xl bg-white p-6 rounded-lg shadow-lg">
                <h1 className="text-3xl font-bold">
-                  Bienvenido, <span className="capitalize">{user.name}!</span>
+                  Bienvenido,{' '}
+                  <span className="capitalize">{profile?.name}!</span>
                </h1>
                <p className="text-gray-600 mt-2">{user.email}</p>
 

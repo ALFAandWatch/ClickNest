@@ -87,19 +87,26 @@ export async function getOrders(): Promise<OrderType[]> {
             id: order.id,
             status: order.status,
             date: new Date(order.date),
-            products: order.order_items.map((op) => {
-               const product = op.products[0]; // 👈 CLAVE
+            products: order.order_items
+               .map((op) => {
+                  const product = Array.isArray(op.products)
+                     ? op.products[0]
+                     : op.products;
 
-               return {
-                  id: product.id,
-                  name: product.name,
-                  price: product.price,
-                  image: product.image,
-                  description: '',
-                  stock: 0,
-                  category_id: 0,
-               };
-            }),
+                  if (!product) return [];
+
+                  return {
+                     id: product.id,
+                     name: product.name,
+                     price: product.price,
+                     image: product.image,
+                     description: '',
+                     stock: 0,
+                     category_id: 0,
+                  };
+               })
+               .flat()
+               .filter(Boolean),
          })
       );
    } catch (error) {

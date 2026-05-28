@@ -23,7 +23,7 @@ const Home: FC = () => {
    return (
       <>
          <div>
-            <section className="relative w-full h-[560px] bg-[url('https://bigbrandwatches.com/wp-content/uploads/2019/03/RolexBannerWeb.jpg')] bg-cover bg-center flex items-center justify-center text-white mb-[100px]">
+            <section className="relative w-full h-[650px] bg-[url('https://bigbrandwatches.com/wp-content/uploads/2019/03/RolexBannerWeb.jpg')] bg-cover bg-center flex items-center justify-center text-white mb-[100px]">
                <div className="text-center bg-black bg-opacity-50 p-6 rounded-lg">
                   <h1 className="text-4xl font-bold">
                      Descubre lo mejor en moda y accesorios.

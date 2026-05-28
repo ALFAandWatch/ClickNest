@@ -84,7 +84,7 @@ const Footer: FC = () => {
                   <a href="#" className="hover:text-turquoise">
                      <img
                         className="invert inline me-2"
-                        src="icons/facebook.svg"
+                        src="/icons/facebook.svg"
                         alt="Facebook"
                      />
                      Facebook
@@ -92,7 +92,7 @@ const Footer: FC = () => {
                   <a href="#" className="hover:text-turquoise">
                      <img
                         className="invert inline me-2"
-                        src="icons/instagram.svg"
+                        src="/icons/instagram.svg"
                         alt="Instagram"
                      />
                      Instagram
@@ -100,7 +100,7 @@ const Footer: FC = () => {
                   <a href="#" className="hover:text-turquoise">
                      <img
                         className="invert inline me-2"
-                        src="icons/x.svg"
+                        src="/icons/x.svg"
                         alt="X"
                      />
                      X

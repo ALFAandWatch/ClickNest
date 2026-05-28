@@ -1,61 +1,37 @@
 'use client';
 
-import {
-   createContext,
-   useContext,
-   useState,
-   ReactNode,
-   useEffect,
-} from 'react';
-import { AuthContextType } from '../types/AuthContextType';
-import { AuthenticatedUser } from '@/types/User';
-import { OrderType } from '@/types/OrderType';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { supabase } from '@/app/lib/supabaseClient';
+import { User } from '@supabase/supabase-js';
+
+type AuthContextType = {
+   user: User | null;
+   isAuthenticated: boolean;
+   loading: boolean;
+};
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export function AuthProvider({ children }: { children: ReactNode }) {
-   const [user, setUser] = useState<AuthenticatedUser | null>(null);
-   const [orders, setOrders] = useState<OrderType[]>([]);
+export function AuthProvider({ children }: { children: React.ReactNode }) {
+   const [user, setUser] = useState<User | null>(null);
+   const [loading, setLoading] = useState(true);
 
-   // 🔥 Cargar sesión inicial
    useEffect(() => {
-      const init = async () => {
-         setUser(null);
-         setOrders([]);
-
+      const getInitialSession = async () => {
          const { data } = await supabase.auth.getSession();
 
-         if (!data.session?.user) return;
+         if (data.session?.user) {
+            setUser(data.session.user);
+         }
 
-         const { data: profile } = await supabase
-            .from('users')
-            .select('*')
-            .eq('id', data.session.user.id)
-            .single();
-
-         setUser(profile);
+         setLoading(false);
       };
 
-      init();
-   }, []);
+      getInitialSession();
 
-   // 🔥 Escuchar cambios de login/logout
-   useEffect(() => {
       const { data: listener } = supabase.auth.onAuthStateChange(
-         async (_event, session) => {
-            if (session) {
-               const { data: profile } = await supabase
-                  .from('users')
-                  .select('*')
-                  .eq('id', session.user.id)
-                  .single();
-
-               setUser(profile);
-            } else {
-               setUser(null);
-               setOrders([]);
-            }
+         (_event, session) => {
+            setUser(session?.user ?? null);
          }
       );
 
@@ -67,11 +43,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
    return (
       <AuthContext.Provider
          value={{
-            isAuthenticated: !!user,
             user,
-            setUser,
-            orders,
-            setOrders,
+            isAuthenticated: !!user,
+            loading,
          }}
       >
          {children}
@@ -79,10 +53,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
    );
 }
 
-export function useAuth() {
+export const useAuth = () => {
    const context = useContext(AuthContext);
+
    if (!context) {
       throw new Error('useAuth must be used within an AuthProvider');
    }
+
    return context;
-}
+};

@@ -20,7 +20,7 @@ const Navbar = () => {
 
    return (
       <>
-         <div className="w-full bg-black flex flex-row items-center px-3">
+         <div className=" bg-black flex flex-row items-center px-3">
             <div className="basis-1/3">
                <Link href="/">
                   <h2 className="text-white align-middle text-lg md:text-4xl font-sans font-bold inline">
@@ -28,7 +28,7 @@ const Navbar = () => {
                   </h2>
                   <img
                      className="inline p-2 align-middle w-10 md:w-12 aspect-square"
-                     src="icons/raven.svg"
+                     src="/icons/raven.svg"
                      alt="ClickNest"
                   />
                </Link>
@@ -94,7 +94,7 @@ const Navbar = () => {
          </div>
 
          {/* MOBILE NAV */}
-         <div className="w-full bg-turquoise flex flex-row justify-start md:hidden px-3 text-sm py-1">
+         <div className=" bg-turquoise flex flex-row justify-start md:hidden px-3 text-sm py-1">
             <Link href="/categories">
                <button className="p-2 px-3 rounded-md bg-black text-turquoise hover:brightness-150 font-light hover:cursor-pointer">
                   Todas las Categorías
@@ -103,56 +103,41 @@ const Navbar = () => {
          </div>
 
          {/* FULL NAV */}
-         <div className="hidden w-full bg-turquoise md:flex flex-row justify-between px-3 text-sm py-1">
+         <div
+            id="inf-nav"
+            className="hidden bg-turquoise md:flex flex-row px-3 gap-3 text-sm py-1 overflow-hidden"
+         >
             <Link href="/categories">
-               <button className="p-2 px-3 rounded-md bg-black text-turquoise hover:brightness-150 font-light hover:cursor-pointer">
+               <button className="inf-nav-button bg-black text-turquoise hover:brightness-150 font-light hover:cursor-pointer">
                   Todas las Categorías
                </button>
             </Link>
-            <Link href="/products/1">
-               <button className="p-2 px-3 mx-1 rounded-md h-full border border-turquoise hover:border hover:border-white hover:text-white transition duration-500 ease-in-out font-light font-sans hover:cursor-pointer">
-                  Smartphones
-               </button>
+            <Link href="/products/1" className="inf-nav-button">
+               Smartphones
             </Link>
-            <Link href="/products/2">
-               <button className="p-2 px-3 mx-1 rounded-md h-full border border-turquoise hover:border hover:border-white hover:text-white transition duration-700 ease-in-out font-light font-sans hover:cursor-pointer">
-                  Laptops
-               </button>
+            <Link href="/products/2" className="inf-nav-button">
+               Laptops
             </Link>
-            <Link href="/products/3">
-               <button className="p-2 px-3 mx-1 rounded-md h-full border border-turquoise hover:border hover:border-white hover:text-white transition duration-500 ease-in-out font-light font-sans hover:cursor-pointer">
-                  Tablets
-               </button>
+            <Link href="/products/3" className="inf-nav-button">
+               Tablets
             </Link>
-            <Link href="/products/4">
-               <button className="p-2 px-3 mx-1 rounded-md h-full border border-turquoise hover:border hover:border-white hover:text-white transition duration-500 ease-in-out font-light font-sans hover:cursor-pointer">
-                  Auriculares
-               </button>
+            <Link href="/products/4" className="inf-nav-button">
+               Auriculares
             </Link>
-            <Link href="/products/5">
-               <button className="p-2 px-3 mx-1 rounded-md h-full border border-turquoise hover:border hover:border-white hover:text-white transition duration-500 ease-in-out font-light font-sans hover:cursor-pointer">
-                  Cámaras
-               </button>
+            <Link href="/products/5" className="inf-nav-button">
+               Cámaras
             </Link>
-            <Link href="/products/6">
-               <button className="p-2 px-3 mx-1 rounded-md h-full border border-turquoise hover:border hover:border-white hover:text-white transition duration-500 ease-in-out font-light font-sans hover:cursor-pointer">
-                  Impresoras
-               </button>
+            <Link href="/products/6" className="inf-nav-button">
+               Impresoras
             </Link>
-            <Link href="/monitors">
-               <button className="p-2 px-3 mx-1 rounded-md h-full border border-turquoise hover:border hover:border-white hover:text-white transition duration-500 ease-in-out font-light font-sans hover:cursor-pointer">
-                  Monitores
-               </button>
+            <Link href="/monitors" className="inf-nav-button">
+               Monitores
             </Link>
-            <Link href="/storage">
-               <button className="p-2 px-3 mx-1 rounded-md h-full border border-turquoise hover:border hover:border-white hover:text-white transition duration-500 ease-in-out font-light font-sans hover:cursor-pointer">
-                  Mobiliario
-               </button>
+            <Link href="/storage" className="inf-nav-button">
+               Mobiliario
             </Link>
-            <Link href="/accessories">
-               <button className="p-2 px-3 mx-1 rounded-md h-full border border-turquoise hover:border hover:border-white hover:text-white transition duration-500 ease-in-out font-light font-sans hover:cursor-pointer">
-                  Accesorios
-               </button>
+            <Link href="/accessories" className="inf-nav-button">
+               Accesorios
             </Link>
          </div>
       </>

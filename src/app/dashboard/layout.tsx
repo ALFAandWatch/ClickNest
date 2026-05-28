@@ -3,10 +3,17 @@ import Link from 'next/link';
 import { logOutUser } from '../lib/users';
 import { useCart } from '@/context/CartContext';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/context/AuthContext';
+import { useEffect } from 'react';
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
    const { setCart } = useCart();
+   const { user } = useAuth();
    const router = useRouter();
+
+   useEffect(() => {
+      if (!user) router.push('/');
+   }, []);
 
    const handleLogOut = () => {
       logOutUser();

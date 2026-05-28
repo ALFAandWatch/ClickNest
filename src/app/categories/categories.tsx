@@ -13,11 +13,13 @@ const CategoriesPage = () => {
             {categories.map((category: Category, index) => (
                <Link key={category.name} href={`/products/${index + 1}`}>
                   <div className="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center justify-center space-y-4 hover:brightness-110 transition duration-300 cursor-pointer">
-                     <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center">
+                     <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center overflow-hidden">
                         <Image
                            src={category.image}
                            alt={category.name}
-                           className="w-full h-full object-contain"
+                           width={110}
+                           height={110}
+                           className="object-contain"
                         />
                      </div>
                      <p className="text-lg font-semibold">{category.name}</p>

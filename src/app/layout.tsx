@@ -4,6 +4,8 @@ import Navbar from '@/components/Navbar/Navbar';
 import Footer from '@/components/Footer/Footer';
 import { AuthProvider } from '@/context/AuthContext';
 import { CartProvider } from '@/context/CartContext';
+import { OrderProvider } from '@/context/OrderContext';
+import { UserProvider } from '@/context/UserContext';
 
 export const metadata = {
    title: 'ClickNest',
@@ -22,11 +24,15 @@ export default function RootLayout({
          </head>
          <body className="overscroll-none">
             <AuthProvider>
-               <CartProvider>
-                  <Navbar></Navbar>
-                  <div className="min-h-screen">{children}</div>
-                  <Footer></Footer>
-               </CartProvider>
+               <UserProvider>
+                  <CartProvider>
+                     <OrderProvider>
+                        <Navbar></Navbar>
+                        <div className="min-h-screen">{children}</div>
+                        <Footer></Footer>
+                     </OrderProvider>
+                  </CartProvider>
+               </UserProvider>
             </AuthProvider>
          </body>
       </html>
